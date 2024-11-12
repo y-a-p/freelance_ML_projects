@@ -51,12 +51,12 @@ rich==13.3.2
 semver==2.13.0
 shap==0.41.0
 simplegeneric==0.8.1
-scikit-learn>=1.2.0
+scikit-learn
 slicer==0.0.7
 smmap==5.0.0
 Sphinx==4.2.0
 streamlit==1.11.0
 tangled-up-in-unicode==0.2.0
-ydata-profiling>=4.1.0
+ydata-profiling
 zict==2.0.0
 zope.event==4.5.0
