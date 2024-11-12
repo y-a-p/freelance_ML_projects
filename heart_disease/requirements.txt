@@ -49,7 +49,7 @@ pytz-deprecation-shim==0.1.0.post0
 PyYAML==6.0
 rich==13.3.2
 semver==2.13.0
-shap==0.41.0
+shap==0.42.1 
 simplegeneric==0.8.1
 scikit-learn==0.24.1
 slicer==0.0.7
