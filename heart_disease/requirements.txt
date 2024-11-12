@@ -57,6 +57,6 @@ smmap==5.0.0
 Sphinx==4.2.0
 streamlit==1.11.0
 tangled-up-in-unicode==0.2.0
-ydata-profiling==4.0.0
+ydata-profiling>=4.1.0
 zict==2.0.0
 zope.event==4.5.0
