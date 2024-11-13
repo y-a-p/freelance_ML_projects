@@ -91,7 +91,7 @@ df = replace_outliers_with_mean(df, 'ap_lo', lb_aplo, ub_aplo, mean_aplo)
 
 # подгружаем модель
 def load():
-    with open("02_heart_disease/model.plc", "rb") as fid:
+    with open("01_heart_disease/model.plc", "rb") as fid:
         return pickle.load(fid)
 
 model = load()
