@@ -74,7 +74,19 @@ def preprocess_russian_text_natasha(text: str) -> str:
         token.lemmatize(morph_vocab)
     lemmas = [token.lemma for token in doc.tokens]
     return " ".join(lemmas)
-
+    
+def parse_latex_formula(formula_str: str) -> str:
+    formula_str = formula_str.replace('\x0crac', r'\frac')
+    replacements = [(r'\\left', ''), (r'\\right', ''), (r'\\text', '')]
+    cleaned = formula_str
+    for pat, repl in replacements:
+        cleaned = re.sub(pat, repl, cleaned)
+    try:
+        expr = parse_latex(cleaned)
+        return str(expr)
+    except Exception:
+        return cleaned
+        
 def extract_formulas_advanced(text: str) -> str:
     pattern = r'(?:\$\$(.*?)\$\$|\$(.*?)\$|\\\((.*?)\\\)|\\begin\{equation\}(.*?)\\end\{equation\})'
     matches = re.findall(pattern, text, flags=re.DOTALL)
