@@ -17,6 +17,13 @@ MATH_LE_PATH = "04_task_classification/math_le_final.pkl"
 PHYS_LE_PATH = "04_task_classification/phys_le_final.pkl"
 TOPIC_PATH = "04_task_classification/topics.csv"
 
+# Natasha
+from natasha import Segmenter, NewsEmbedding, NewsMorphTagger, MorphVocab, Doc
+segmenter = Segmenter()
+emb = NewsEmbedding()
+morph_tagger = NewsMorphTagger(emb)
+morph_vocab = MorphVocab()
+
 # --- Загрузка моделей и векторизаторов ---
 @st.cache_resource
 def load_models_and_encoders():
@@ -46,6 +53,7 @@ if le_bin is not None:
 else:
     math_val = 1
     phys_val = 193
+
 
 # --- Функции предобработки ---
 def preprocess_russian_text_natasha(text: str) -> str:
