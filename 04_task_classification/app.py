@@ -138,11 +138,11 @@ if st.button("Предсказать"):
 
         # Получаем предсказание для уровня 0
         level0_pred = final_model0.predict(X)
-        print("level0_pred ":level0_pred)
+        print("level0_pred ", level0_pred)
         # Используем маршрутизатор для получения подтемы (уровень 1)
         level1_pred = predict_router_final(final_model0, final_model_math, final_model_phys,
                                            X, math_val, phys_val, math_le_final, phys_le_final)
-        print("level1_pred ":level1_pred)
+        print("level1_pred ", level1_pred)
         # Декодируем числовые идентификаторы в наименования тем, используя таблицу topic_df.
         # Предполагается, что в таблице topic_df есть столбцы 'id' и 'name' для уровня 0 и уровня 1.
         # Если используется одна таблица для обоих уровней, то может потребоваться различать их по диапазону id
@@ -153,9 +153,9 @@ if st.button("Предсказать"):
         
         # Декодируем результаты
         topic_level0_name = decode_topic(level0_pred[0])
-        print("topic_level0_name ":topic_level0_name)
+        print("topic_level0_name ", topic_level0_name)
         topic_level1_name = decode_topic(level1_pred[0])
-        print("topic_level1_name ":topic_level1_name)
+        print("topic_level1_name ", topic_level1_name)
         
         st.success(f"Тема уровня 0: **{topic_level0_name}**//**{level0_pred[0]}**")
         st.success(f"Подтема уровня 1: **{topic_level1_name}**//**{level0_pred[0]}**")
