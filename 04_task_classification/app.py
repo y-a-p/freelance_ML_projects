@@ -169,6 +169,7 @@ if st.button("Предсказать"):
             return row['name'].values[0] if not row.empty else "Неизвестная тема"
         
         # Декодируем результаты
+        st.success(f'dftype:{type(topic_df['id'][0])}')
         st.success(f'encoder: {type(le_full.inverse_transform([level0_pred[0]])[0])}')
         topic_level0_name = decode_topic(le_full.inverse_transform([level0_pred[0]])[0])
         st.success(f"topic_level0_name {topic_level0_name}")
