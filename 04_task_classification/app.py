@@ -104,7 +104,7 @@ def extract_formulas_advanced(text: str) -> str:
 def predict_router_final(model0, model_math, model_phys, X, math_val, phys_val, math_le, phys_le):
     # Если X представлено в разреженном формате, преобразуем его в плотный массив
     X_dense = X.toarray() if hasattr(X, "toarray") else X
-    y0_pred = model0.predict(X_dense)
+    y0_pred = np.array(model0.predict(X_dense))
     st.success(f"1:{y0_pred}")
     y1_pred = np.empty(len(X_dense), dtype=object)  # Используем тип object, чтобы сохранить декодированные метки
     
