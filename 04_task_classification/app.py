@@ -168,9 +168,9 @@ if st.button("Предсказать"):
             return row['name'].values[0] if not row.empty else "Неизвестная тема"
         
         # Декодируем результаты
-        topic_level0_name = decode_topic(level0_pred[0])
+        topic_level0_name = decode_topic(le_full.inverse_transform(level0_pred[0]))
         st.success(f"topic_level0_name {topic_level0_name}")
-        topic_level1_name = decode_topic(le_full.inverse_transform([level1_pred[0]])[0])
+        topic_level1_name = decode_topic(le_full.inverse_transform([level1_pred[0])
         st.success(f"topic_level1_name {topic_level1_name}")
         
         st.success(f"Тема уровня 0: **{topic_level0_name}**")
