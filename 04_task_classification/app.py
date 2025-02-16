@@ -108,6 +108,7 @@ def predict_router_final(model0, model_math, model_phys, X, math_val, phys_val, 
     st.success(f"1:{y0_pred}")
     y1_pred = np.empty(len(X_dense), dtype=object)  # Используем тип object, чтобы сохранить декодированные метки
     
+    st.success(f'math_val :{math_val}, phys_val :{phys_val}')
     # Индексы, где базовая модель определила математику
     math_idx = np.where(y0_pred == math_val)[0]
     st.success(f"2:{math_idx}")
