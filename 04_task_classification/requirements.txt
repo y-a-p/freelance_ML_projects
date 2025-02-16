@@ -1,4 +1,5 @@
 lightgbm
 scikit-learn
 natasha
+setuptools
 joblib
