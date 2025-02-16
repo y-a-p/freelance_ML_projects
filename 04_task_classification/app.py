@@ -154,10 +154,10 @@ if st.button("Предсказать"):
         # Декодируем результаты
         topic_level0_name = decode_topic(level0_pred[0])
         st.success(f"topic_level0_name {topic_level0_name}")
-        topic_level1_name = decode_topic(level1_pred[0])
+        topic_level1_name = decode_topic(level1_pred[1])
         st.success(f"topic_level1_name {topic_level1_name}")
         
         st.success(f"Тема уровня 0: **{topic_level0_name}**//**{level0_pred[0]}**")
-        st.success(f"Подтема уровня 1: **{topic_level1_name}**//**{level0_pred[0]}**")
+        st.success(f"Подтема уровня 1: **{topic_level1_name}**//**{level1_pred[1]}**")
     else:
         st.error("Пожалуйста, введите текст задачи.")
