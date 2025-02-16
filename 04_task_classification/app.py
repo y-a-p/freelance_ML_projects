@@ -24,6 +24,10 @@ emb = NewsEmbedding()
 morph_tagger = NewsMorphTagger(emb)
 morph_vocab = MorphVocab()
 
+# Для LaTeX -> sympy
+import sympy
+from sympy.parsing.latex import parse_latex
+
 # --- Загрузка моделей и векторизаторов ---
 @st.cache_resource
 def load_models_and_encoders():
