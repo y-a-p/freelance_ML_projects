@@ -5,16 +5,16 @@ import numpy as np
 from scipy.sparse import hstack
 
 
-MODEL0_PATH = "/router_model0.pkl"
-MODEL_MATH_PATH = "/router_model_math.pkl"
-MODEL_PHYS_PATH = "/router_model_phys.pkl"
-TEXT_VECTORIZER_PATH = "/text_vectorizer.pkl"
-FORM_VECTORIZER_PATH = "/form_vectorizer.pkl"
-LE_BIN_PATH = "/le_bin.pkl"
-LE_FULL_PATH = "/le_full.pkl"
-MATH_LE_PATH = "/math_le_final.pkl"
-PHYS_LE_PATH = "/phys_le_final.pkl"
-TOPIC_PATH = "/topics.csv"
+MODEL0_PATH = "./router_model0.pkl"
+MODEL_MATH_PATH = "./router_model_math.pkl"
+MODEL_PHYS_PATH = "./router_model_phys.pkl"
+TEXT_VECTORIZER_PATH = "./text_vectorizer.pkl"
+FORM_VECTORIZER_PATH = "./form_vectorizer.pkl"
+LE_BIN_PATH = "./le_bin.pkl"
+LE_FULL_PATH = "./le_full.pkl"
+MATH_LE_PATH = "./math_le_final.pkl"
+PHYS_LE_PATH = "./phys_le_final.pkl"
+TOPIC_PATH = "./topics.csv"
 
 # --- Загрузка моделей и векторизаторов ---
 @st.cache_resource
