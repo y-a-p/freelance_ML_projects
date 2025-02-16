@@ -118,6 +118,7 @@ def predict_router_final(model0, model_math, model_phys, X, math_val, phys_val, 
             y_final.append(pred[0])
         else:
             y_final.append(y0[i])
+    st.success(f"prediction {np.array(y_final)}")
     return np.array(y_final)
 
 # --- Интерфейс Streamlit ---
@@ -142,7 +143,7 @@ if st.button("Предсказать"):
         # Используем маршрутизатор для получения подтемы (уровень 1)
         level1_pred = predict_router_final(final_model0, final_model_math, final_model_phys,
                                            X, math_val, phys_val, math_le_final, phys_le_final)
-        st.success(f"level1_pred {level1_pred[0]}")
+        st.success(f"level1_pred {level1_pred[1]}")
         # Декодируем числовые идентификаторы в наименования тем, используя таблицу topic_df.
         # Предполагается, что в таблице topic_df есть столбцы 'id' и 'name' для уровня 0 и уровня 1.
         # Если используется одна таблица для обоих уровней, то может потребоваться различать их по диапазону id
