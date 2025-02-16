@@ -2,4 +2,5 @@ lightgbm
 scikit-learn
 natasha
 setuptools
+sympy
 joblib
