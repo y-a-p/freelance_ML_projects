@@ -165,9 +165,11 @@ if st.button("Предсказать"):
         # или использовать две разные таблицы.
         def decode_topic(topic_id):
             row = topic_df[topic_df['id'] == topic_id]
+            st.success(f'row:{row}')
             return row['name'].values[0] if not row.empty else "Неизвестная тема"
         
         # Декодируем результаты
+        st.success(f'encoder: {le_full.inverse_transform([level0_pred[0]])[0]}')
         topic_level0_name = decode_topic(le_full.inverse_transform([level0_pred[0]])[0])
         st.success(f"topic_level0_name {topic_level0_name}")
         topic_level1_name = decode_topic(le_full.inverse_transform([level1_pred[0]])[0])
