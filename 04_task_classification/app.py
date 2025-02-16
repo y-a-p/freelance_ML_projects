@@ -170,8 +170,8 @@ if st.button("Предсказать"):
         
         # Декодируем результаты
         st.success(f'dftype:{type(topic_df['id'][0])}')
-        st.success(f'encoder1: {level0_pred[0]}')
-        topic_level0_name = decode_topic(level0_pred[0])
+        st.success(f'encoder1: {int(le_full.inverse_transform([level0_pred[0]])[0])}')
+        topic_level0_name = decode_topic(int(le_full.inverse_transform([level0_pred[0]])[0]))
         st.success(f"topic_level0_name {topic_level0_name}")
         topic_level1_name = decode_topic(int(le_full.inverse_transform([level1_pred[0]])[0]))
         st.success(f"topic_level1_name {topic_level1_name}")
