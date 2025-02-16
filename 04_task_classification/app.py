@@ -105,23 +105,28 @@ def predict_router_final(model0, model_math, model_phys, X, math_val, phys_val, 
     # Если X представлено в разреженном формате, преобразуем его в плотный массив
     X_dense = X.toarray() if hasattr(X, "toarray") else X
     y0_pred = model0.predict(X_dense)
+    st.success(f"1:{y0_pred}")
     y1_pred = np.empty(len(X_dense), dtype=object)  # Используем тип object, чтобы сохранить декодированные метки
     
     # Индексы, где базовая модель определила математику
     math_idx = np.where(y0_pred == math_val)[0]
+    st.success(f"2:{math_idx}")
     # Индексы, где базовая модель определила физику
     phys_idx = np.where(y0_pred == phys_val)[0]
+    st.success(f"3:{phys_idx}")
     
     # Для математики: получаем закодированные предсказания и декодируем их
     if len(math_idx) > 0:
         math_pred_enc = model_math.predict(X_dense[math_idx])
         # inverse_transform ожидает 1D-массив, поэтому передаём массив
         y1_pred[math_idx] = math_le.inverse_transform(math_pred_enc)
+        st.success(f"4:{y1_pred[math_idx]}")
     
     # Для физики: аналогично
     if len(phys_idx) > 0:
         phys_pred_enc = model_phys.predict(X_dense[phys_idx])
         y1_pred[phys_idx] = phys_le.inverse_transform(phys_pred_enc)
+        st.success(f"5:{y1_pred[phys_idx]}")
     
     # Для остальных индексов оставляем исходное предсказание базовой модели
     other_idx = np.where((y0_pred != math_val) & (y0_pred != phys_val))[0]
