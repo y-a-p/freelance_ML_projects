@@ -105,29 +105,24 @@ def predict_router_final(model0, model_math, model_phys, X, math_val, phys_val, 
     # Если X представлено в разреженном формате, преобразуем его в плотный массив
     X_dense = X.toarray() if hasattr(X, "toarray") else X
     y0_pred = np.array(model0.predict(X_dense))
-    st.success(f"1:{y0_pred}")
     y1_pred = np.empty(len(X_dense), dtype=object)  # Используем тип object, чтобы сохранить декодированные метки
     
     st.success(f'math_val :{math_val}, phys_val :{phys_val}')
     # Индексы, где базовая модель определила математику
     math_idx = np.where(y0_pred == math_val)[0]
-    st.success(f"2:{math_idx}")
     # Индексы, где базовая модель определила физику
     phys_idx = np.where(y0_pred == phys_val)[0]
-    st.success(f"3:{phys_idx}")
     
     # Для математики: получаем закодированные предсказания и декодируем их
     if len(math_idx) > 0:
         math_pred_enc = model_math.predict(X_dense[math_idx])
         # inverse_transform ожидает 1D-массив, поэтому передаём массив
         y1_pred[math_idx] = math_le.inverse_transform(math_pred_enc)
-        st.success(f"4:{y1_pred[math_idx]}")
     
     # Для физики: аналогично
     if len(phys_idx) > 0:
         phys_pred_enc = model_phys.predict(X_dense[phys_idx])
         y1_pred[phys_idx] = phys_le.inverse_transform(phys_pred_enc)
-        st.success(f"5:{y1_pred[phys_idx]}")
     
     # Для остальных индексов оставляем исходное предсказание базовой модели
     other_idx = np.where((y0_pred != math_val) & (y0_pred != phys_val))[0]
@@ -137,9 +132,9 @@ def predict_router_final(model0, model_math, model_phys, X, math_val, phys_val, 
     return y1_pred
 
 # --- Интерфейс Streamlit ---
-st.title("Классификация текстовых задач")
+st.title("Классификация задач по физике и математике")
 
-st.markdown("Введите текст задачи, и модель предскажет тему (уровень 0) и подтему (уровень 1).")
+st.markdown("Введите текст задачи, и модель определит предмет (уровень 0) и подтему (уровень 1).")
 
 user_text = st.text_area("Введите текст задачи:")
 
@@ -154,7 +149,7 @@ if st.button("Предсказать"):
 
         # Получаем предсказание для уровня 0
         level0_pred = final_model0.predict(X)
-        st.success(f"level0_pred {level0_pred[0]}")
+
         # Используем маршрутизатор для получения подтемы (уровень 1)
         level1_pred = predict_router_final(final_model0, final_model_math, final_model_phys,
                                            X, math_val, phys_val, math_le_final, phys_le_final)
@@ -165,18 +160,14 @@ if st.button("Предсказать"):
         # или использовать две разные таблицы.
         def decode_topic(topic_id):
             row = topic_df[topic_df['id'] == topic_id]
-            st.success(f'row:{row}')
             return row['name'].values[0] if not row.empty else "Неизвестная тема"
         
         # Декодируем результаты
-        st.success(f'dftype:{type(topic_df['id'][0])}')
-        st.success(f'encoder1: {int(le_bin.inverse_transform([level0_pred[0]])[0])}')
         topic_level0_name = decode_topic(int(le_bin.inverse_transform([level0_pred[0]])[0]))
-        st.success(f"topic_level0_name {topic_level0_name}")
         topic_level1_name = decode_topic(int(le_full.inverse_transform([level1_pred[0]])[0]))
-        st.success(f"topic_level1_name {topic_level1_name}")
+
         
-        st.success(f"Тема уровня 0: **{topic_level0_name}**")
-        st.success(f"Подтема уровня 1: **{topic_level1_name}**")
+        st.success(f"Предмет (уровень 0): **{topic_level0_name}**")
+        st.success(f"Подтема (уровень 1): **{topic_level1_name}**")
     else:
         st.error("Пожалуйста, введите текст задачи.")
