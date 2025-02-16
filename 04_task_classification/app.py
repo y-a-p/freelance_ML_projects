@@ -136,18 +136,25 @@ if st.button("Предсказать"):
         X_form = form_vectorizer.transform([processed_form])
         X = hstack([X_text, X_form])
 
-        # Получаем предсказание (числовой id темы)
-        y_pred = predict_router_final(final_model0, final_model_math, final_model_phys,
-                                      X, math_val, phys_val, math_le_final, phys_le_final)
-
-        # Декодируем предсказанный id в наименование темы
-        # Если в таблице topic_df столбцы называются "id" и "name"
-        topic_row = topic_df[topic_df['id'] == y_pred[0]]
-        if not topic_row.empty:
-            topic_name = topic_row['name'].values[0]
-        else:
-            topic_name = "Неизвестная тема"
-
-        st.success(f"Предсказанная тема: **{topic_name}**")
+        # Получаем предсказание для уровня 0
+        level0_pred = final_model0.predict(X)
+        # Используем маршрутизатор для получения подтемы (уровень 1)
+        level1_pred = predict_router_final(final_model0, final_model_math, final_model_phys,
+                                           X, math_val, phys_val, math_le_final, phys_le_final)
+        
+        # Декодируем числовые идентификаторы в наименования тем, используя таблицу topic_df.
+        # Предполагается, что в таблице topic_df есть столбцы 'id' и 'name' для уровня 0 и уровня 1.
+        # Если используется одна таблица для обоих уровней, то может потребоваться различать их по диапазону id
+        # или использовать две разные таблицы.
+        def decode_topic(topic_id):
+            row = topic_df[topic_df['id'] == topic_id]
+            return row['name'].values[0] if not row.empty else "Неизвестная тема"
+        
+        # Декодируем результаты
+        topic_level0_name = decode_topic(level0_pred[0])
+        topic_level1_name = decode_topic(level1_pred[0])
+        
+        st.success(f"Тема уровня 0: **{topic_level0_name}**")
+        st.success(f"Подтема уровня 1: **{topic_level1_name}**")
     else:
         st.error("Пожалуйста, введите текст задачи.")
