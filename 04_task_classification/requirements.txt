@@ -1,6 +1,7 @@
 lightgbm
 scikit-learn
 natasha
+pymorphy2-dicts-ru
 setuptools
 sympy
 joblib
