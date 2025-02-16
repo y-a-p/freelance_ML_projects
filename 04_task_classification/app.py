@@ -107,7 +107,6 @@ def predict_router_final(model0, model_math, model_phys, X, math_val, phys_val, 
     y0_pred = np.array(model0.predict(X_dense))
     y1_pred = np.empty(len(X_dense), dtype=object)  # Используем тип object, чтобы сохранить декодированные метки
     
-    st.success(f'math_val :{math_val}, phys_val :{phys_val}')
     # Индексы, где базовая модель определила математику
     math_idx = np.where(y0_pred == math_val)[0]
     # Индексы, где базовая модель определила физику
@@ -140,6 +139,7 @@ user_text = st.text_area("Введите текст задачи:")
 
 if st.button("Предсказать"):
     if user_text.strip():
+        user_text.replace("\n", " ")
         # Применяем функции предобработки
         processed_text = preprocess_russian_text_natasha(user_text)
         processed_form = extract_formulas_advanced(user_text)
@@ -153,7 +153,7 @@ if st.button("Предсказать"):
         # Используем маршрутизатор для получения подтемы (уровень 1)
         level1_pred = predict_router_final(final_model0, final_model_math, final_model_phys,
                                            X, math_val, phys_val, math_le_final, phys_le_final)
-        st.success(f"level1_pred {level1_pred[0]}")
+
         # Декодируем числовые идентификаторы в наименования тем, используя таблицу topic_df.
         # Предполагается, что в таблице topic_df есть столбцы 'id' и 'name' для уровня 0 и уровня 1.
         # Если используется одна таблица для обоих уровней, то может потребоваться различать их по диапазону id
