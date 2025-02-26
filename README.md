@@ -1,4 +1,4 @@
-## Workshop Portfolio
+## Freelance Portfolio
 
 Здесь собраны проекты реализованные по направлению Data Science в рамках мастерских.
 
